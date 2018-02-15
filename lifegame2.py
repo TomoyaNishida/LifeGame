@@ -10,7 +10,7 @@ import time
 
 
 class LifeGame:
-
+    t = 0
     def __init__(self, L=30, rule="2 3/3", p=None, pattern=None):
         self.L = L  # lattice size
         self.survive = [int(i) for i in rule.split("/")[0].split()]
@@ -29,7 +29,6 @@ class LifeGame:
 
     def progress(self, canvas_update, update, onestep=False):
         Tmax = 2000
-        t = 0
         self.loop = True
         while self.loop:
             try:
@@ -178,7 +177,9 @@ class Main:
                               ('1 step', self.one_step),
                               ('pause', self.pause)),
                              (('save', self.pr),),
-                             (('quit', self.quit),))
+                             (('quit', self.quit),
+                              ('step:'+str(self.lg.t),self.count),)
+                            )
 
     def init(self):
         self.DrawCanvas = Draw_canvas(self.lg, self.lg.L)
@@ -208,6 +209,9 @@ class Main:
     def quit(self):
         self.pause()
         sys.exit()
+
+    def count(self):
+        pass
 
 if __name__ == '__main__':
 
